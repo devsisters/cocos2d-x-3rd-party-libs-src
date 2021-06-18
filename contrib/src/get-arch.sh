@@ -10,6 +10,12 @@ case "$HOST" in
 	amd64-*)
 		ARCH="x86_64"
 		;;
+	arm64-*)
+		ARCH="arm64"
+		;;
+	aarch64-*)
+		ARCH="arm64"
+		;;
 	i[3456]86-*)
 		ARCH="i386"
 		;;
