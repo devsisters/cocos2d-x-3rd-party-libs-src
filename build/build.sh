@@ -241,7 +241,7 @@ function create_fat_library()
     fi
 
     echo "creating fat library for lib$copied_library_name.a"
-    
+
     #strip & create fat library
     LIPO="xcrun -sdk iphoneos lipo"
     STRIP="xcrun -sdk iphoneos strip"
@@ -290,7 +290,7 @@ function generate_android_standalone_toolchain()
     fi
 
     if [ $arch == "arm64-v8a" ]; then
-        arch="arm64" 
+        arch="arm64"
     fi
 
     api_level=$2
@@ -303,6 +303,7 @@ function generate_android_standalone_toolchain()
     fi
 
     "$ANDROID_NDK/build/tools/make-standalone-toolchain.sh" \
+      --use-llvm \
       --arch="${arch}" \
       --platform="${api_level}" \
       --stl=libc++ \
@@ -369,7 +370,7 @@ do
         if [ $cfg_platform_name = "ios" ];then
             export BUILDFORIOS="yes"
         fi
-        
+
         if [ $cfg_platform_name = "tvos" ];then
             export BUILDFORTVOS="yes"
         fi
@@ -377,6 +378,8 @@ do
         if [ $cfg_platform_name = "android" ];then
             if [ $MY_TARGET_ARCH = "arm64-v8a" ];then
                 export ANDROID_API=android-$cfg_default_arm64_build_api
+            elif [ $MY_TARGET_ARCH = "x86_64" ];then
+                export ANDROID_API=android-$cfg_default_x86_64_build_api
             else
                 export ANDROID_API=android-$build_api
             fi
